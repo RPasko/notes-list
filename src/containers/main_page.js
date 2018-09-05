@@ -1,11 +1,9 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import { Field, reduxForm, reset } from 'redux-form';
-import {Link} from 'react-router';
 import RenderField from '../components/RenderField/RenderField';
 import { required, minLength } from '../helpers/validation';
-import {} from '../actions/index';
-
+import {getPosts} from '../actions/index';
 
 class MainPage extends Component{
     state = {
@@ -15,6 +13,13 @@ class MainPage extends Component{
         error_text: null
     };
     componentWillMount(){
+        this.props.getPosts().then((res)=>{
+            if(res.payload && res.payload.status && res.payload.status == 200 || res.payload.status == 201){
+                comments: res.payload.data
+                console.log(res.payload.data);
+            }
+        });
+
         if (localStorage.data && localStorage.data.length>0) {
             let temp = JSON.parse(localStorage.data)
             this.setState({
@@ -137,13 +142,16 @@ class MainPage extends Component{
         const { itemsArr, activeItem, comments, error_text } = this.state;
         return(
             <div className="main-wrapper">
-                <div className="sidebar">
-                    <h1>Dairy app</h1>
-                    <p>Comment with no sense</p>
+                <div className="header">
+                    <h1>Blog app</h1>
                 </div>
                 <div className="content-wrapper">
                     <div>
-                        <h1>Items</h1>
+                        <h1>Articles</h1>
+
+
+                        
+
                         <form  onSubmit={handleSubmit((data)=>{this.SubmitForm(data)})}>
                             <div className="form-adding-items">
                                 <div>
@@ -203,18 +211,18 @@ class MainPage extends Component{
     }
 }
 
-const afterSubmit = (result, dispatch) =>
-    dispatch(reset('MainPage'));
-
-MainPage = reduxForm({
-    form: 'MainPage',
-    onSubmitSuccess: afterSubmit,
-})(MainPage);
-
 function  mapStateToProps(state) {
     return{
-
+        main: state.main
     }
 }
 
-export default connect(mapStateToProps, {})(MainPage);
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        getPosts,
+        
+    }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
+

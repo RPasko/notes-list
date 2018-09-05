@@ -1,25 +1,49 @@
-require('es6-promise').polyfill();
-import axios from 'axios';
-import * as constants from './constant';
+import * as types from './constants';
 
-
-// export function signIn(props) {
-//     let config = {
-//         headers: {'Accept-Language': localStorage.getItem('language_code')}
-//     };
-//     const request = axios.post(`${constants.ROOT_URL}/v0/auth/login/`, props, config)
+//
+// export function getPosts(props) {
+//
+//     const request = axios.get(`${constants.ROOT_URL}/posts/`, props)
 //         .then((response)=>{
 //             return response
 //         })
 //         .catch((err)=>{
 //             let result = {
-//                 error_signIn: err.response.data
+//                 error: err.response.data
 //             };
 //             return result
 //         });
 //
 //     return{
-//         type: constants.SIGN_IN,
+//         type: constants.GET_POSTS,
 //         payload: request
 //     }
 // }
+
+
+export function getPosts(data) {
+    return {
+        type: types.GET_POSTS,
+        payload: {
+            client: 'default',
+            request: {
+                url: `/posts/`,
+                method: "get",
+                data
+            }
+        }
+    };
+}
+export function getUsers(data) {
+    return {
+        type: types.GET_USERS,
+        payload: {
+            client: 'default',
+            request: {
+                url: `/posts/`,
+                method: "get",
+                data
+            }
+        }
+    };
+}

@@ -4,10 +4,9 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import {Router, browserHistory} from 'react-router';
 import promise from 'redux-promise';
-import { ReduxRouter, reduxReactRouter  } from 'redux-router';
 
 import routes from './routes';
-import reducers from './reducers';
+import reducers from './reducers/index';
 
 import '../assets/style.css';
 

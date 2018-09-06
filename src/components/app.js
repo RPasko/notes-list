@@ -1,12 +1,18 @@
-import React, { Component,PropTypes } from 'react';
-import { connect } from 'react-redux';
-import {} from '../actions/index';
+import React, { Component, PropTypes } from 'react';
+import Router from 'react-router-dom/BrowserRouter';
+import {
+    Route,
+    Switch,
+    Redirect
+} from 'react-router-dom';
 import { RouteTransition } from 'react-router-transition';
+import { AnimatedSwitch } from 'react-router-transition';
+
+import {} from '../actions/index';
+
 
 class App extends Component {
-    static contextTypes = {
-        router: PropTypes.object
-    };
+
     componentWillMount(){
 
     }
@@ -21,19 +27,20 @@ class App extends Component {
     }
     render() {
         return (
-            
-            <RouteTransition
-                className="transition-wrapper"
-                pathname={this.props.location.pathname}
-                atEnter={{ opacity: 0 }}
-                atLeave={{ opacity: 1 }}
-                atActive={{ opacity: 1 }}
-            >
-                {this.props.children}
-            </RouteTransition>
+            <Router>
+                <AnimatedSwitch
+                    atEnter={{ opacity: 0 }}
+                    atLeave={{ opacity: 0 }}
+                    atActive={{ opacity: 1 }}
+                    className="switch-wrapper"
+                >
+                    {this.props.children}
+                </AnimatedSwitch>
+            </Router>
         );
     }
 }
 
 
-export default connect(null, {})(App);
+
+export default App;

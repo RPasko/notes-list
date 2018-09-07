@@ -12,7 +12,8 @@ export default (
     <App>
         <div>
             <Switch>
-                <Route path='/' component={MainPage} />
+                 <Route path='/' exact render={() => <Redirect to="/dashboard" push />}/>
+                <Route path='/dashboard' component={MainPage} />
                 <Route component={NoMatch}/>
             </Switch>
         </div>
